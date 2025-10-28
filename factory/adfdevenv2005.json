@@ -1,0 +1,9 @@
+{
+	"name": "adfdevenv2005",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ff71ba66-0b74-40b0-b35e-399f04ca645c",
+		"tenantId": "d6a199cf-8305-4c33-8a67-ea96f174588f"
+	}
+}
