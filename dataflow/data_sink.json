@@ -1,5 +1,5 @@
 {
-	"name": "data_filter",
+	"name": "data_sink",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -38,11 +38,13 @@
 				"source1 filter({dep name}=='FINANCE') ~> filter1",
 				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['table1.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
