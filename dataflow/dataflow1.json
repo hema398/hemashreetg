@@ -55,6 +55,7 @@
 				"select1 filter(substring({Department name },1,3)=='Mar') ~> filter1",
 				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['derivedcolumn.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
