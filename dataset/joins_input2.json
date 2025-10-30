@@ -1,0 +1,40 @@
+{
+	"name": "joins_input2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adlsgen21",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "table06.csv",
+				"fileSystem": "input1"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "dept id",
+				"type": "String"
+			},
+			{
+				"name": "dept name",
+				"type": "String"
+			},
+			{
+				"name": "emp name",
+				"type": "String"
+			},
+			{
+				"name": "DOJ",
+				"type": "String"
+			}
+		]
+	}
+}
