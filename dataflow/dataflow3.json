@@ -86,6 +86,7 @@
 				"          DOJ as string,",
 				"          addDays as string",
 				"     ),",
+				"     partitionFileNames:['union_revenue'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
