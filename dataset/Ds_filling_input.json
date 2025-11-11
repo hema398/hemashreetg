@@ -1,0 +1,36 @@
+{
+	"name": "Ds_filling_input",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adlsgen21",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Fillingduplicates.csv",
+				"fileSystem": "input1"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "SalesOrderID",
+				"type": "String"
+			},
+			{
+				"name": "Product name",
+				"type": "String"
+			},
+			{
+				"name": "Product Cost",
+				"type": "String"
+			}
+		]
+	}
+}
