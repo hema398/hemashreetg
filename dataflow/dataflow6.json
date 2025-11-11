@@ -14,6 +14,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "ds_pivot_output",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
@@ -38,6 +42,15 @@
 				"     lateral: true) ~> pivot1",
 				"pivot1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     input(",
+				"          {dept id} as string,",
+				"          {Department name } as string,",
+				"          DOJ as string,",
+				"          addDays as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
