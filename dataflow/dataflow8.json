@@ -47,7 +47,7 @@
 				"          DOJ as string,",
 				"          addDays as string",
 				"     ),",
-				"     partitionFileNames:['alterrow'],",
+				"     partitionFileNames:['alterrow.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
