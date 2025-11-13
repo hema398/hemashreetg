@@ -18,7 +18,11 @@
 						"referenceName": "alterrow_output",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "adlsgen21",
+						"type": "LinkedServiceReference"
+					}
 				}
 			],
 			"transformations": [
