@@ -1,5 +1,5 @@
 {
-	"name": "dataflow8",
+	"name": "pl_alterrow",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
