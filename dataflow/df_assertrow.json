@@ -1,5 +1,5 @@
 {
-	"name": "dataflow8",
+	"name": "df_assertrow",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
