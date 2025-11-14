@@ -1,0 +1,115 @@
+{
+	"name": "dataflow8",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "assertrow_input",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "customerassert_input",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "assert_valid_output",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "assertinvalid_output",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "assert1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "filter2"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {Sales ID} as string,",
+				"          SO_Date as string,",
+				"          Cust_ID as string,",
+				"          QTY as string,",
+				"          Value as string,",
+				"          Country as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          Customer_ID as string,",
+				"          Customer_Name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source1, source2 assert(expectUnique({Sales ID}, false, 'Sales_ID'),",
+				"     expectTrue(!isNull(toDate(SO_Date,'dd-MM-yyyy')), false, 'SO_Date'),",
+				"     expectExists(Customer_ID == Cust_ID, true, 'customer_Id')) ~> assert1",
+				"assert1 filter(isError()==true()) ~> filter1",
+				"derivedColumn1 filter(isError()==false()) ~> filter2",
+				"assert1 derive(error_rows = isError(),",
+				"          error_description = case(hasError('Sales ID')==true(),'Sales ID Error its no unique',hasError('SO_Date')==true(),'SO_Date',hasError('Cust_ID')==true(),'Cust_ID')) ~> derivedColumn1",
+				"filter2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {Sales ID} as string,",
+				"          SO_Date as string,",
+				"          Cust_ID as string,",
+				"          QTY as string,",
+				"          Value as string,",
+				"          Country as string",
+				"     ),",
+				"     partitionFileNames:['assert_valid'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1",
+				"filter1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {Sales ID} as string,",
+				"          SO_Date as string,",
+				"          Cust_ID as string,",
+				"          QTY as string,",
+				"          Value as string,",
+				"          Country as string",
+				"     ),",
+				"     partitionFileNames:['assert invalid_output'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink2"
+			]
+		}
+	}
+}
